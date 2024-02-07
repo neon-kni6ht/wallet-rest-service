@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_db
+      author: STyurnikov
+      changes:
+        - createTable:
+            tableName: wallet
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: balance
+                  type: bigint
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: add_wallet_entries
+      author: STyurnikov
+      changes:
+        - loadUpdateData:
+            file: data/wallet_data.csv
+            separator: ','
+            tableName: wallet
+            primaryKey: id
+            columns:
+              - column:
+                  name: balance

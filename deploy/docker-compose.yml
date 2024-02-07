@@ -1,0 +1,25 @@
+version: "2.2"
+
+services:
+  wallet-service:
+    build: ../
+    container_name: wallet-service
+    image: wallet-service
+    ports:
+      - ${SERVICE_PORT}:8080
+    depends_on:
+      - wallet-service-db
+    environment:
+       SERVER_PORT: 8080
+       SPRING_DATASOURCE_URL: "jdbc:postgresql://wallet-service-db:5432/wallet_service_db"
+       SPRING_DATASOURCE_USERNAME: ${DB_ADMIN_USERNAME}
+       SPRING_DATASOURCE_PASSWORD: ${DB_ADMIN_PASS}
+  wallet-service-db:
+    container_name: wallet-service-db
+    image: postgres:latest
+    ports:
+      - ${DB_PORT}:5432
+    environment:
+      - POSTGRES_DB=wallet_service_db
+      - POSTGRES_USER=${DB_ADMIN_USERNAME}
+      - POSTGRES_PASSWORD=${DB_ADMIN_PASS}

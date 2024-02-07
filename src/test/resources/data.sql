@@ -1,0 +1,1 @@
+INSERT INTO wallet (balance) VALUES (100),(200),(300);
